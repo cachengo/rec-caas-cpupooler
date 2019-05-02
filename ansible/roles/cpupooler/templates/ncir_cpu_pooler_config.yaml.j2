@@ -1,0 +1,32 @@
+#jinja2: lstrip_blocks: True
+{#
+Copyright 2019 Nokia
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+#}
+---
+{% for hostname, hostdata in hostvars.iteritems() %}
+  {% if hostname != "localhost" %}
+{{ hostname }}:
+  pools:
+    {% set cpu_allocation = hostdata.get('ansible_local', {}).get('ncir_cpu_allocation', {}) %}
+    {% for allocation_name, allocation in cpu_allocation.iteritems() %}
+      {% if allocation_name in cpu_allocation_mapping %}
+    {{ cpu_allocation_mapping[allocation_name]['pool_name'] }}:
+      cpus: "{{ allocation.get('list', '') }}"
+      {% endif %}
+    {% endfor %}
+  nodeSelector:
+    nodename: "{{ hostdata['nodename'] | default('') }}"
+  {% endif %}
+{% endfor %}
