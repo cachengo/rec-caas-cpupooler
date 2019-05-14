@@ -22,12 +22,12 @@
 
   - name: make cpu pooler configs
     set_fact:
-      cpu_poolconfigs: "{{ lookup('template', 'ncir_cpu_pooler_config.yaml.j2') | from_yaml }}"
+      cpu_poolconfigs: "{{ lookup('template', 'cpu_pooler_config.yaml.j2') | from_yaml }}"
 
   - name: template cpu pooler fact file
     copy:
       content: "{{ cpu_poolconfigs | to_nice_json }}"
-      dest: "/etc/ansible/facts.d/ncir_cpu_pooler_config.fact"
+      dest: "/etc/ansible/facts.d/cpu_pooler_config.fact"
     become: true
     become_user: root
     register: cpu_pooler_template

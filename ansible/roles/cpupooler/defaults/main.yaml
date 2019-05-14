@@ -18,5 +18,5 @@ cpu_allocation_mapping:
     pool_name: exclusive_caas
   caas_shared:
     pool_name: shared_caas
-  platform:
+  caas_default:
     pool_name: default

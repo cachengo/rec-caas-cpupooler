@@ -19,7 +19,7 @@ limitations under the License.
   {% if hostname != "localhost" %}
 {{ hostname }}:
   pools:
-    {% set cpu_allocation = hostdata.get('ansible_local', {}).get('ncir_cpu_allocation', {}) %}
+    {% set cpu_allocation = hostdata.get('ansible_local', {}).get('cpu_allocation', {}) %}
     {% for allocation_name, allocation in cpu_allocation.iteritems() %}
       {% if allocation_name in cpu_allocation_mapping %}
     {{ cpu_allocation_mapping[allocation_name]['pool_name'] }}:
