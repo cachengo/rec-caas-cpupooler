@@ -12,7 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-FROM centos:7.6.1810
+FROM centos:7
 MAINTAINER Balazs Szekeres <balazs.szekeres@nokia.com>
 
 ARG DEPENDENCY_MANAGER
@@ -21,6 +21,7 @@ ARG CPUPOOLER
 ENV CPUPOOLER_VERSION=$CPUPOOLER
 ENV GOPATH /build
 ENV BUILD_DIR="$GOPATH/src/github.com/nokia/CPU-Pooler"
+ENV PATH=$PATH:/usr/local/go/bin
 
 RUN yum update -y \
 &&  yum install -y \
@@ -38,10 +39,8 @@ RUN yum update -y \
       make \
       gcc \
       gcc-c++ \
-&&  rpm --import https://mirror.go-repo.io/centos/RPM-GPG-KEY-GO-REPO \
-&&  curl -s https://mirror.go-repo.io/centos/go-repo.repo | tee /etc/yum.repos.d/go-repo.repo \
-&&  yum install -y golang \
-&&  curl -fsSL -o /usr/local/bin/dep https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-amd64 \
+&&  curl https://dl.google.com/go/go1.12.7.linux-arm64.tar.gz | tar -C /usr/local -xvz \
+&&  curl -fsSL -o /usr/local/bin/dep https://github.com/golang/dep/releases/download/v${DEP_VERSION}/dep-linux-arm64 \
 &&  chmod +x /usr/local/bin/dep \
 &&  mkdir -p $BUILD_DIR \
 &&  git clone https://github.com/nokia/CPU-Pooler.git $BUILD_DIR \

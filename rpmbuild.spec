@@ -12,13 +12,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+%define CPU_ARCHITECTURE aarch64
 %define COMPONENT cpupooler
 %define COMPONENT_PART process-starter
 %define RPM_NAME caas-%{COMPONENT}
 %define RPM_MAJOR_VERSION 0.3.0
 %define RPM_MINOR_VERSION 1
 %define CPUPOOLER_VERSION 2467d8805f309c4294a0e63af70038a7d1372391
-%define DEPENDENCY_MANAGER_VERSION 0.5.0
+%define DEPENDENCY_MANAGER_VERSION 0.5.4
 %define IMAGE_TAG %{RPM_MAJOR_VERSION}-%{RPM_MINOR_VERSION}
 %define PROCESS_STARTER_INSTALL_PATH /opt/bin/
 
@@ -28,7 +29,7 @@ Release:        %{RPM_MINOR_VERSION}%{?dist}
 Summary:        Containers as a Service cpu-pooler component
 License:        %{_platform_license} and BSD 3-Clause License
 URL:            https://github.com/nokia/CPU-Pooler
-BuildArch:      x86_64
+BuildArch:      %{CPU_ARCHITECTURE}
 Vendor:         %{_platform_vendor} and Nokia
 Source0:        %{name}-%{version}.tar.gz
 
